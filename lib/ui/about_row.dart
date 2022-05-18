@@ -59,7 +59,7 @@ class AboutRow extends StatelessWidget {
                     subtitle,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      color: mcolors.colorTextLightDark,
+                      color: mcolors.colorTextLight,
                     ),
                   )
                 ])

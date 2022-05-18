@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor:
-            mcolors.backgroundView, // status bar colortatus bar brightness
+            mcolors.colorDisabled, // status bar colortatus bar brightness
         title: Text(
           "Wassword",
           style: GoogleFonts.roboto(
@@ -57,7 +57,7 @@ class HomeView extends StatelessWidget {
             child: IconButton(
                 iconSize: 24,
                 color: mcolors.colorTextLight,
-                icon: const Icon(Icons.person_outline),
+                icon: const Icon(Icons.info_outline_rounded),
                 onPressed: () => context.push('/about')),
           ),
         ],
@@ -65,30 +65,31 @@ class HomeView extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.all(mdimens.defaultSpace),
-            height: 160,
+            margin: EdgeInsets.only(bottom: mdimens.defaultSpace),
+            height: 250,
             decoration: BoxDecoration(
-              color: mcolors.colorEnabled,
-              borderRadius:
-                  BorderRadius.all(Radius.circular(mdimens.roundedCorner)),
+              color: mcolors.colorDisabled,
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(mdimens.roundedCornerPassword),
+                  bottomRight: Radius.circular(mdimens.roundedCornerPassword)),
             ),
-            padding:
-                EdgeInsets.symmetric(horizontal: mdimens.paddingHorizontal),
+            padding: EdgeInsets.symmetric(
+                horizontal: mdimens.paddingHorizontalPassword),
             alignment: const Alignment(0, 0),
             child: Text(
               context.select((PasswordCubit cubit) => cubit.state.password),
               textAlign: TextAlign.center,
               style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: mcolors.colorTextDark),
+                  fontSize: 32,
+                  color: mcolors.colorTextLight),
             ),
           ),
           //https://medium.com/flutter-community/flutter-sliders-demystified-4b3ea65879c
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
                 activeTrackColor: mcolors.colorEnabled,
-                trackHeight: mdimens.heightSlider * 1.1,
+                trackHeight: mdimens.heightSlider * 1.3,
                 inactiveTrackColor: mcolors.colorDisabled,
                 thumbColor: mcolors.colorEnabled,
                 thumbShape: CustomSliderThumbCircle(
@@ -178,25 +179,31 @@ class HomeView extends StatelessWidget {
               return Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: mdimens.paddingHorizontal),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    ActionButton(
-                      text: "Copy",
-                      icon: Icons.copy,
-                      isMain: false,
-                      callback: () => _copyToClipboard(state.password),
+                    Expanded(
+                      flex: 2,
+                      child: ActionButton(
+                        text: "Copy",
+                        icon: Icons.copy,
+                        isMain: false,
+                        callback: () => _copyToClipboard(state.password),
+                      ),
                     ),
                     SizedBox(
-                      height: mdimens.defaultSpace,
+                      width: mdimens.defaultSpace,
                     ),
-                    ActionButton(
-                      text: "Generate",
-                      icon: Icons.sync,
-                      isMain: true,
-                      callback: () =>
-                          context.read<PasswordCubit>().updatePassword(),
+                    Expanded(
+                      flex: 4,
+                      child: ActionButton(
+                        text: "Generate",
+                        icon: Icons.sync,
+                        isMain: true,
+                        callback: () =>
+                            context.read<PasswordCubit>().updatePassword(),
+                      ),
                     ),
                   ],
                 ),

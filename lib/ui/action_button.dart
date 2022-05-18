@@ -21,13 +21,10 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-
     return GestureDetector(
       onTap: callback,
       child: Container(
-        height: isMain ? actionButtonSizeBig : actionButtonSizeSmall,
-        width: screenWidth * .7,
+        height: actionButtonSizeBig,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(mdimens.roundedCorner),
           color: isMain ? mcolors.colorMainButton : mcolors.colorDisabled,
@@ -48,7 +45,7 @@ class ActionButton extends StatelessWidget {
             Text(
               text,
               style: TextStyle(
-                  fontSize: isMain ? 18 : 16,
+                  fontSize: isMain ? 22 : 16,
                   color:
                       isMain ? mcolors.colorTextDark : mcolors.colorTextLight),
             )
