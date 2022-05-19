@@ -1,11 +1,36 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
-Color backgroundView = const Color(0xFF1F1F1F);
+const brandColor = Color(0xFF258618);
+CustomColors lightCustomColors = const CustomColors(danger: Color(0xFFE53935));
+CustomColors darkCustomColors = const CustomColors(danger: Color(0xFFEF9A9A));
 
-Color colorEnabled = const Color(0xFFBBD1E1);
-Color colorDisabled = const Color(0xFF2A2A2A);
+@immutable
+class CustomColors extends ThemeExtension<CustomColors> {
+  const CustomColors({
+    required this.danger,
+  });
 
-Color colorTextLight = const Color(0xFFEEEEEE);
-Color colorTextDark = const Color(0xFF212121);
+  final Color? danger;
 
-Color colorMainButton = colorEnabled;
+  @override
+  CustomColors copyWith({Color? danger}) {
+    return CustomColors(
+      danger: danger ?? this.danger,
+    );
+  }
+
+  @override
+  CustomColors lerp(ThemeExtension<CustomColors>? other, double t) {
+    if (other is! CustomColors) {
+      return this;
+    }
+    return CustomColors(
+      danger: Color.lerp(danger, other.danger, t),
+    );
+  }
+
+  CustomColors harmonized(ColorScheme dynamic) {
+    return copyWith(danger: danger!.harmonizeWith(dynamic.primary));
+  }
+}

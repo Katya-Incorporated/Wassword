@@ -7,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wassword/cubit/password_cubit.dart';
-import 'package:wassword/styles/colors.dart' as mcolors;
 import 'package:wassword/styles/dimens.dart' as mdimens;
 import 'package:wassword/ui/action_button.dart';
 import 'package:wassword/ui/custom_slider_thumb_circle.dart';
@@ -42,23 +41,25 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
-        backgroundColor:
-            mcolors.colorDisabled, // status bar colortatus bar brightness
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        centerTitle: true,
         title: Text(
           "Wassword",
           style: GoogleFonts.roboto(
-            color: mcolors.colorTextLight,
+            color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
         actions: <Widget>[
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: IconButton(
-                iconSize: 24,
-                color: mcolors.colorTextLight,
-                icon: const Icon(Icons.info_outline_rounded),
-                onPressed: () => context.push('/about')),
+              iconSize: 24,
+              color: Theme.of(context).colorScheme.onPrimary,
+              icon: const Icon(Icons.info_outline_rounded),
+              onPressed: () => context.push('/about'),
+            ),
           ),
         ],
       ),
@@ -68,10 +69,11 @@ class HomeView extends StatelessWidget {
             margin: EdgeInsets.only(bottom: mdimens.defaultSpace),
             height: 250,
             decoration: BoxDecoration(
-              color: mcolors.colorDisabled,
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(mdimens.roundedCornerPassword),
-                  bottomRight: Radius.circular(mdimens.roundedCornerPassword)),
+                bottomLeft: Radius.circular(mdimens.roundedCornerPassword),
+                bottomRight: Radius.circular(mdimens.roundedCornerPassword),
+              ),
             ),
             padding: EdgeInsets.symmetric(
                 horizontal: mdimens.paddingHorizontalPassword),
@@ -80,20 +82,24 @@ class HomeView extends StatelessWidget {
               context.select((PasswordCubit cubit) => cubit.state.password),
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32,
-                  color: mcolors.colorTextLight),
+                fontWeight: FontWeight.bold,
+                fontSize: 32,
+                color: Theme.of(context).colorScheme.onPrimary,
+              ),
             ),
           ),
           //https://medium.com/flutter-community/flutter-sliders-demystified-4b3ea65879c
           SliderTheme(
             data: SliderTheme.of(context).copyWith(
-                activeTrackColor: mcolors.colorEnabled,
+                activeTrackColor:
+                    Theme.of(context).colorScheme.primaryContainer,
                 trackHeight: mdimens.heightSlider * 1.3,
-                inactiveTrackColor: mcolors.colorDisabled,
-                thumbColor: mcolors.colorEnabled,
+                inactiveTrackColor:
+                    Theme.of(context).colorScheme.surfaceVariant,
+                thumbColor: Theme.of(context).colorScheme.primaryContainer,
                 thumbShape: CustomSliderThumbCircle(
                     thumbRadius: mdimens.heightSlider,
+                    buildContext: context,
                     value: context
                         .select((PasswordCubit cubit) => cubit.state.length))),
             child: Slider(

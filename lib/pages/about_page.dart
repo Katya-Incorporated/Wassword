@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher_string.dart';
-import 'package:wassword/styles/colors.dart' as mcolors;
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wassword/ui/about_row.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
   //Open the browser with the url provided
-  void _launchURL(String urlToLaunch) async {
-    if (await canLaunchUrlString(urlToLaunch)) {
-      await launchUrlString(urlToLaunch);
+  void _launchURL(String stringToLaunch) async {
+    Uri urlToLaunch = Uri.parse(stringToLaunch);
+
+    if (await canLaunchUrl(urlToLaunch)) {
+      await launchUrl(urlToLaunch);
     } else {
       throw 'Could not launch $urlToLaunch';
     }
@@ -19,18 +20,18 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.surface,
         appBar: AppBar(
-          backgroundColor: mcolors.backgroundView, // status bar colorstatus ba
+          // backgroundColor: mcolors.backgroundView, // status bar colorstatus ba
           leading: IconButton(
-            color: Colors.white,
             icon: const Icon(Icons.arrow_back),
             onPressed: () => context.pop(),
           ),
           title: Text(
             "About",
             style: GoogleFonts.roboto(
-              color: mcolors.colorTextLight,
-            ),
+                // color: mcolors.colorTextLight,
+                ),
           ),
         ),
         body: ListView(
@@ -45,8 +46,10 @@ class AboutPage extends StatelessWidget {
                   title: Text(
                     "DEVELOPER",
                     textAlign: TextAlign.left,
-                    style:
-                        TextStyle(fontSize: 14, color: mcolors.colorTextLight),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Theme.of(context).colorScheme.onSurface,
+                    ),
                   ),
                 ),
                 AboutRow(

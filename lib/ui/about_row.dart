@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wassword/styles/colors.dart' as mcolors;
 import 'package:wassword/styles/dimens.dart' as mdimens;
 
 class AboutRow extends StatelessWidget {
@@ -18,13 +17,15 @@ class AboutRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = Theme.of(context).colorScheme.onSurfaceVariant;
+
     return GestureDetector(
       onTap: callback,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         height: 80,
         decoration: BoxDecoration(
-          color: mcolors.colorDisabled,
+          color: Theme.of(context).colorScheme.surfaceVariant,
           borderRadius: BorderRadius.all(
             Radius.circular(mdimens.roundedCorner),
           ),
@@ -38,7 +39,7 @@ class AboutRow extends StatelessWidget {
               child: Icon(
                 icon,
                 size: 32,
-                color: mcolors.colorTextLight,
+                color: textColor,
               ),
             ),
             Column(
@@ -49,7 +50,7 @@ class AboutRow extends StatelessWidget {
                     title,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
-                      color: mcolors.colorTextLight,
+                      color: textColor,
                     ),
                   ),
                   const SizedBox(
@@ -59,7 +60,7 @@ class AboutRow extends StatelessWidget {
                     subtitle,
                     style: TextStyle(
                       fontWeight: FontWeight.w400,
-                      color: mcolors.colorTextLight,
+                      color: textColor,
                     ),
                   )
                 ])
@@ -67,18 +68,5 @@ class AboutRow extends StatelessWidget {
         ),
       ),
     );
-
-    // return ListTile(
-    //   leading: Icon(
-    //     icon,
-    //     color: mcolors.colorTextLight,
-    //     size: 23,
-    //   ),
-    //   title: Text(
-    //     subtitle,
-    //     style: TextStyle(color: mcolors.colorTextLight, fontSize: 14),
-    //   ),
-    //   onTap: callback,
-    // );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wassword/styles/colors.dart' as mcolors;
 import 'package:wassword/styles/dimens.dart' as mdimens;
 
 class ActionButton extends StatelessWidget {
@@ -21,20 +20,27 @@ class ActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = isMain
+        ? Theme.of(context).colorScheme.onPrimaryContainer
+        : Theme.of(context).colorScheme.onSecondaryContainer;
+    Color backgroundColor = isMain
+        ? Theme.of(context).colorScheme.primaryContainer
+        : Theme.of(context).colorScheme.secondaryContainer;
+
     return GestureDetector(
       onTap: callback,
       child: Container(
         height: actionButtonSizeBig,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(mdimens.roundedCorner),
-          color: isMain ? mcolors.colorMainButton : mcolors.colorDisabled,
+          color: backgroundColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
-              color: isMain ? mcolors.colorTextDark : mcolors.colorTextLight,
+              color: textColor,
               size: isMain
                   ? actionButtonSizeBig / 2
                   : actionButtonSizeSmall / 2.5,
@@ -44,10 +50,7 @@ class ActionButton extends StatelessWidget {
             ),
             Text(
               text,
-              style: TextStyle(
-                  fontSize: isMain ? 22 : 16,
-                  color:
-                      isMain ? mcolors.colorTextDark : mcolors.colorTextLight),
+              style: TextStyle(fontSize: isMain ? 22 : 16, color: textColor),
             )
           ],
         ),

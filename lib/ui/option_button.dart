@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wassword/styles/colors.dart' as mcolors;
 import 'package:wassword/styles/dimens.dart' as mdimens;
 
 class OptionButton extends StatelessWidget {
@@ -20,6 +19,13 @@ class OptionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = active
+        ? Theme.of(context).colorScheme.onPrimaryContainer
+        : Theme.of(context).colorScheme.onSurfaceVariant;
+    Color backgroundColor = active
+        ? Theme.of(context).colorScheme.primaryContainer
+        : Theme.of(context).colorScheme.surfaceVariant;
+
     return Expanded(
       child: GestureDetector(
         onTap: callback,
@@ -27,7 +33,7 @@ class OptionButton extends StatelessWidget {
           height: 85,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(mdimens.roundedCorner),
-            color: active ? mcolors.colorEnabled : mcolors.colorDisabled,
+            color: backgroundColor,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,
@@ -38,8 +44,7 @@ class OptionButton extends StatelessWidget {
                 child: Icon(
                   icon,
                   size: 24,
-                  color:
-                      active ? mcolors.colorTextDark : mcolors.colorTextLight,
+                  color: textColor,
                 ),
               ),
               Column(
@@ -51,9 +56,7 @@ class OptionButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
-                      color: active
-                          ? mcolors.colorTextDark
-                          : mcolors.colorTextLight,
+                      color: textColor,
                     ),
                   ),
                   const SizedBox(
@@ -64,9 +67,7 @@ class OptionButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
-                      color: active
-                          ? mcolors.colorTextDark
-                          : mcolors.colorTextLight,
+                      color: textColor,
                     ),
                   )
                 ],
